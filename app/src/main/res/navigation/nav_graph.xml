@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/search_fact">
+
+    <fragment
+        android:id="@+id/search_fact"
+        android:name="com.example.numberfacts.presentation.screen.search_fact.SearchFactFragment"
+        tools:layout="@layout/fragment_search_fact">
+        <action
+            android:id="@+id/action_search_fact_to_details"
+            app:destination="@id/details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/details"
+        android:name="com.example.numberfacts.presentation.screen.details.DetailsFragment"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="item"
+            app:argType="com.example.numberfacts.presentation.model.details.NumberFactDetailsItem" />
+    </fragment>
+</navigation>
