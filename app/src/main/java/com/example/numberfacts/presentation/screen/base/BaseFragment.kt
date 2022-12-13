@@ -14,11 +14,6 @@ abstract class BaseFragment : Fragment {
 
     private val compositeDisposable = CompositeDisposable()
 
-    override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable.dispose()
-    }
-
     fun <T : Any> Observable<T>.subscribeWithLifecycle(block: (T) -> Unit) {
         val lifecycle = viewLifecycleOwner.lifecycle
         subscribe { if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) block(it) }
@@ -27,6 +22,7 @@ abstract class BaseFragment : Fragment {
             object : LifecycleEventObserver {
                 override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
                     if (lifecycle.currentState == Lifecycle.State.DESTROYED) {
+                        compositeDisposable.clear()
                         lifecycle.removeObserver(this)
                     }
                 }
