@@ -3,7 +3,7 @@ package com.example.numberfacts.application.di
 import com.example.numberfacts.application.fragment_factory.FragmentKey
 import com.example.numberfacts.application.fragment_factory.FragmentProvider
 import com.example.numberfacts.presentation.screen.search_fact.SearchFactFragment
-import com.example.numberfacts.presentation.screen.search_fact.di.DaggerSearchFragmentComponent
+import com.example.numberfacts.presentation.screen.search_fact.di.DaggerSearchFactFragmentComponent
 import com.example.numberfacts.presentation.screen.search_fact.di.SearchFactFragmentComponent
 import dagger.Binds
 import dagger.Module
@@ -21,8 +21,8 @@ abstract class FragmentProviderModule {
     companion object {
         @Provides
         fun provideSearchFactFragmentProvider(component: AppComponent): SearchFactFragmentComponent =
-            DaggerSearchFragmentComponent.builder()
-                .searchFragmentDependencies(component)
+            DaggerSearchFactFragmentComponent.builder()
+                .searchFactFragmentDependencies(component)
                 .build()
     }
 }

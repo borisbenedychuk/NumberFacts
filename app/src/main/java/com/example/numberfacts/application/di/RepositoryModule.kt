@@ -12,7 +12,7 @@ class RepositoryModule {
     @Provides
     fun provideNumberFactRepository(component: AppComponent): NumberFactRepository =
         DaggerNumberRepositoryComponent.builder()
-            .numberRepositoryDependencies(component)
+            .numberFactRepositoryDependencies(component)
             .build()
             .numberFactRepository
 }
