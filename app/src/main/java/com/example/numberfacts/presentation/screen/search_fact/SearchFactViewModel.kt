@@ -1,8 +1,8 @@
 package com.example.numberfacts.presentation.screen.search_fact
 
 import com.example.numberfacts.domain.use_case.GetSearchHistoryUseCase
-import com.example.numberfacts.domain.use_case.SearchNumberUseCase
-import com.example.numberfacts.domain.use_case.SearchRandomNumberUseCase
+import com.example.numberfacts.domain.use_case.SearchNumberFactUseCase
+import com.example.numberfacts.domain.use_case.SearchRandomNumberFactUseCase
 import com.example.numberfacts.presentation.model.search_fact.SearchFactEffect
 import com.example.numberfacts.presentation.model.search_fact.SearchFactEffect.*
 import com.example.numberfacts.presentation.model.search_fact.SearchFactEvent
@@ -14,8 +14,8 @@ import io.reactivex.rxjava3.core.Observable
 import javax.inject.Inject
 
 class SearchFactViewModel @Inject constructor(
-    private val searchNumberUseCase: SearchNumberUseCase,
-    private val searchRandomNumberUseCase: SearchRandomNumberUseCase,
+    private val searchNumberFactUseCase: SearchNumberFactUseCase,
+    private val searchRandomNumberFactUseCase: SearchRandomNumberFactUseCase,
     private val getSearchHistoryUseCase: GetSearchHistoryUseCase,
 ) : BaseViewModel<SearchFactState, SearchFactEvent, SearchFactIntent, SearchFactEffect>(
     initialState = SearchFactState(),
@@ -27,14 +27,14 @@ class SearchFactViewModel @Inject constructor(
                 is SearchNumber ->
                     Observable.concat(
                         Observable.just(Loading),
-                        searchNumberUseCase
+                        searchNumberFactUseCase
                             .execute(state.number.toInt())
                             .map(::DisplayFact)
                     )
                 is SearchRandomNumber ->
                     Observable.concat(
                         Observable.just(Loading),
-                        searchRandomNumberUseCase
+                        searchRandomNumberFactUseCase
                             .execute()
                             .map(::DisplayFact)
                     )

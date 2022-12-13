@@ -4,7 +4,7 @@ import com.example.numberfacts.application.fragment_factory.FragmentKey
 import com.example.numberfacts.application.fragment_factory.FragmentProvider
 import com.example.numberfacts.presentation.screen.search_fact.SearchFactFragment
 import com.example.numberfacts.presentation.screen.search_fact.di.DaggerSearchFragmentComponent
-import com.example.numberfacts.presentation.screen.search_fact.di.SearchFragmentComponent
+import com.example.numberfacts.presentation.screen.search_fact.di.SearchFactFragmentComponent
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -16,11 +16,11 @@ abstract class FragmentProviderModule {
     @Binds
     @IntoMap
     @FragmentKey(SearchFactFragment::class)
-    abstract fun bindSearchFactProvider(component: SearchFragmentComponent): FragmentProvider
+    abstract fun bindSearchFactProvider(component: SearchFactFragmentComponent): FragmentProvider
 
     companion object {
         @Provides
-        fun provideSearchFactFragmentProvider(component: AppComponent): SearchFragmentComponent =
+        fun provideSearchFactFragmentProvider(component: AppComponent): SearchFactFragmentComponent =
             DaggerSearchFragmentComponent.builder()
                 .searchFragmentDependencies(component)
                 .build()

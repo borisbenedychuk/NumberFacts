@@ -5,14 +5,14 @@ import com.example.numberfacts.data.remote.model.NumberFactResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 
-interface NumberCacheDatasource {
+interface NumberFactCacheDatasource {
 
     fun getRecentNumberFacts(): Observable<List<NumberFactEntity>>
 
     fun saveNumberFact(entity: NumberFactEntity): Completable
 }
 
-interface NumberRemoteDatasource {
+interface NumberFactRemoteDatasource {
 
     fun getRandomNumberFact(): Observable<NumberFactResponse>
 

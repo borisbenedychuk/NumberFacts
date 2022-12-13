@@ -10,7 +10,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class SearchFragmentModule {
+abstract class SearchFactFragmentModule {
 
     @Binds
     abstract fun bindFragment(fragment: SearchFactFragment): Fragment

@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.Observable
 private const val HISTORY_LIMIT = 10
 
 @Dao
-interface NumberDao {
+interface NumberFactDao {
 
     @Query("SELECT * FROM numbers ORDER BY time_stamp DESC")
     fun getEntities(): Observable<List<NumberFactEntity>>

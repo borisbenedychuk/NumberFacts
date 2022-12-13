@@ -1,13 +1,13 @@
 package com.example.numberfacts.data.repository.di
 
 import com.example.numberfacts.data.cache.AppDB
-import com.example.numberfacts.data.datasource.NumberCacheDatasource
-import com.example.numberfacts.data.datasource.NumberCacheDatasourceImpl
-import com.example.numberfacts.data.datasource.NumberRemoteDatasource
-import com.example.numberfacts.data.datasource.NumberRemoteDatasourceImpl
-import com.example.numberfacts.data.remote.api.NumberApi
-import com.example.numberfacts.data.repository.NumberRepositoryImpl
-import com.example.numberfacts.domain.repository.NumberRepository
+import com.example.numberfacts.data.datasource.NumberFactCacheDatasource
+import com.example.numberfacts.data.datasource.NumberFactCacheDatasourceImpl
+import com.example.numberfacts.data.datasource.NumberFactRemoteDatasource
+import com.example.numberfacts.data.datasource.NumberFactRemoteDatasourceImpl
+import com.example.numberfacts.data.remote.api.NumberFactApi
+import com.example.numberfacts.data.repository.NumberFactRepositoryImpl
+import com.example.numberfacts.domain.repository.NumberFactRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -19,20 +19,20 @@ abstract class NumberRepositoryModule {
 
     @Binds
 
-    abstract fun bindRemoteDataSource(datasource: NumberRemoteDatasourceImpl): NumberRemoteDatasource
+    abstract fun bindRemoteDataSource(datasource: NumberFactRemoteDatasourceImpl): NumberFactRemoteDatasource
 
     @Binds
-    abstract fun bindCacheDataSource(datasource: NumberCacheDatasourceImpl): NumberCacheDatasource
+    abstract fun bindCacheDataSource(datasource: NumberFactCacheDatasourceImpl): NumberFactCacheDatasource
 
     @Binds
-    abstract fun bindRepository(repository: NumberRepositoryImpl): NumberRepository
+    abstract fun bindRepository(repository: NumberFactRepositoryImpl): NumberFactRepository
 
     companion object {
         @Provides
-        fun provideApi(retrofit: Retrofit) = retrofit.create<NumberApi>()
+        fun provideApi(retrofit: Retrofit) = retrofit.create<NumberFactApi>()
 
         @Provides
-        fun provideDao(db: AppDB) = db.numberDao
+        fun provideDao(db: AppDB) = db.numberFactDao
     }
 }
 

@@ -5,7 +5,7 @@ import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface NumberApi {
+interface NumberFactApi {
 
     @GET("{number}")
     fun getNumberFact(@Path("number") number: Int): Observable<NumberFactResponse>

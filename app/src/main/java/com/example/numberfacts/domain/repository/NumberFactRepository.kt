@@ -3,7 +3,7 @@ package com.example.numberfacts.domain.repository
 import com.example.numberfacts.domain.model.NumberFactModel
 import io.reactivex.rxjava3.core.Observable
 
-interface NumberRepository {
+interface NumberFactRepository {
 
     fun getRandomNumberFact(): Observable<NumberFactModel>
 

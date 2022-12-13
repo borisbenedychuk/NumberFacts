@@ -4,7 +4,7 @@ import com.example.numberfacts.application.fragment_factory.FragmentProvider
 import dagger.Component
 
 @Component(
-    dependencies = [SearchFragmentDependencies::class],
-    modules = [SearchFragmentModule::class]
+    dependencies = [SearchFactFragmentDependencies::class],
+    modules = [SearchFactFragmentModule::class]
 )
-interface SearchFragmentComponent : FragmentProvider
+interface SearchFactFragmentComponent : FragmentProvider
