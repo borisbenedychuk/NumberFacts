@@ -2,7 +2,7 @@ package com.example.numberfacts.presentation.screen.base
 
 import androidx.lifecycle.ViewModel
 import com.example.numberfacts.presentation.utils.update
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
@@ -17,8 +17,8 @@ abstract class BaseViewModel<STATE : Any, EVENT : Any, ACTION : Any, EFFECT : An
     private val _state = BehaviorSubject.createDefault(initialState)
     private val _events = PublishSubject.create<EVENT>()
 
-    val events: Observable<EVENT> = _events.observeOn(AndroidSchedulers.mainThread())
-    val state: Observable<STATE> = _state.observeOn(AndroidSchedulers.mainThread())
+    val events: Observable<EVENT> = _events.observeOn(mainThread())
+    val state: Observable<STATE> = _state.observeOn(mainThread())
 
     private val intentSubject = PublishSubject.create<ACTION>()
 
