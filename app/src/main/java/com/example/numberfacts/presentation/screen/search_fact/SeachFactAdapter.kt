@@ -34,9 +34,9 @@ class SearchFactAdapter(
     fun update(newList: List<NumberFactModel>) {
         val callback = DiffUtilCallback(list, newList)
         val diff = DiffUtil.calculateDiff(callback)
-        diff.dispatchUpdatesTo(this)
         list.clear()
         list.addAll(newList)
+        diff.dispatchUpdatesTo(this)
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
