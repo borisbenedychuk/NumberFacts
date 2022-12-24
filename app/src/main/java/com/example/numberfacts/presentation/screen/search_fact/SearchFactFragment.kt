@@ -57,14 +57,37 @@ class SearchFactFragment @Inject constructor(
         }
     }
 
-    private fun bindNumberText() = with(binding.textField) {
-        doOnTextChanged { text, _, _, _ ->
+    private fun bindNumberText() {
+        binding.textField.doOnTextChanged { text, _, _, _ ->
             text?.let {
                 viewModel.pushAction(
                     SearchFactIntent.ChangeText(it.toString())
                 )
             }
         }
+    }
+
+    private fun bindRecyclerView() {
+        viewModel.state.handleState(
+            scope = { history },
+            handling = adapter::update
+        )
+    }
+
+    private fun bindProgressbar() {
+        viewModel.state.handleState(
+            scope = { loading },
+            handling = { isLoading ->
+                with(binding) {
+                    if (loadingContainer.isVisible != isLoading) {
+                        loadingContainer.isVisible = isLoading
+                        textField.isEnabled = !isLoading
+                        buttonNumber.isEnabled = !isLoading
+                        buttonRandomNumber.isEnabled = !isLoading
+                    }
+                }
+            }
+        )
     }
 
     private fun bindNavigation() {
@@ -76,28 +99,6 @@ class SearchFactFragment @Inject constructor(
                         it.model.asItem()
                     )
                 )
-            }
-    }
-
-    private fun bindRecyclerView() {
-        binding
-        viewModel.state
-            .map { it.history }
-            .distinctUntilChanged()
-            .subscribeWithLifecycle(adapter::update)
-    }
-
-    private fun bindProgressbar() = with(binding) {
-        viewModel.state
-            .map { it.loading }
-            .distinctUntilChanged()
-            .subscribeWithLifecycle { isLoading ->
-                if (loadingContainer.isVisible != isLoading) {
-                    loadingContainer.isVisible = isLoading
-                    textField.isEnabled = !isLoading
-                    buttonNumber.isEnabled = !isLoading
-                    buttonRandomNumber.isEnabled = !isLoading
-                }
             }
     }
 

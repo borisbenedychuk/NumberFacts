@@ -3,6 +3,8 @@ package com.example.numberfacts.presentation.screen.base
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle.State.DESTROYED
+import androidx.lifecycle.Lifecycle.State.STARTED
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import io.reactivex.rxjava3.core.Observable
@@ -14,20 +16,27 @@ abstract class BaseFragment : Fragment {
 
     private val compositeDisposable = CompositeDisposable()
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onStop() {
+        super.onStop()
         compositeDisposable.clear()
     }
 
+    fun <T : Any, R : Any> Observable<T>.handleState(
+        scope: T.() -> R,
+        handling: (R) -> Unit
+    ) = this.map { it.scope() }
+        .distinctUntilChanged()
+        .subscribeWithLifecycle(handling)
+
     fun <T : Any> Observable<T>.subscribeWithLifecycle(block: (T) -> Unit) {
         val lifecycle = viewLifecycleOwner.lifecycle
-        subscribe { if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) block(it) }
-            .also(compositeDisposable::add)
         lifecycle.addObserver(
             object : LifecycleEventObserver {
                 override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                    if (lifecycle.currentState == Lifecycle.State.DESTROYED) {
-                        lifecycle.removeObserver(this)
+                    when (lifecycle.currentState) {
+                        STARTED -> subscribe(block).also(compositeDisposable::add)
+                        DESTROYED -> lifecycle.removeObserver(this)
+                        else -> Unit
                     }
                 }
             }
